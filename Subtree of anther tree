@@ -1,0 +1,47 @@
+public class SubTree {
+    static class node {
+        int data;
+        node left;
+        node right;
+
+        node(int data) {
+            this.data = data;
+        }
+    }
+        public static boolean isIdentical(node root , node subtree){
+         if (root == null && subtree == null){
+             return true;
+         } else if (root == null || subtree == null || root.data != subtree.data) {
+             return false;
+         }
+            return isIdentical(root.left , subtree.left) && isIdentical(root.right , subtree.right);
+        }
+        public static boolean searchSub(node root,node subtree){
+            if (root == null){
+                return false;
+            }
+            if (root.data == subtree.data){
+                if (isIdentical(root, subtree)) {
+                    return true;
+                }
+            }
+            return searchSub(root.left,subtree) || searchSub(root.right,subtree);
+
+        }
+
+    public static void main(String[] args) {
+        node root = new node(1);
+
+        root.left = new node(2);
+        root.right = new node(3);
+        root.left.left = new node(4);
+        root.left.right = new node(5);
+        root.right.left = new node(6);
+        root.right.right = new node(7);
+
+        node subtree = new node(2);
+        subtree.left = new node(4);
+        subtree.right = new node(5);
+        System.out.println(searchSub(root,subtree));
+    }
+}
